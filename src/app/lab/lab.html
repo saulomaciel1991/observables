@@ -1,0 +1,31 @@
+@if (isLoading()) {
+  <p>Carregando personagens...</p>
+} @else {
+  <h2>Personagens de Rick and Morty</h2>
+
+  <table mat-table [dataSource]="characters()">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Status</th>
+        <th scope="col">Imagem</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (character of characters(); track character.name) {
+      <tr>
+        <td>{{ character.name }}</td>
+        <td>{{ character.status }}</td>
+        <td><img [src]="character.image" alt="{{ character.name }}" width="50" height="50"></td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="3">Nenhum personagem encontrado</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+}
+
+<button (click)="carregarPersonagens()" [disabled]="isLoading()">Carregar</button>
+<button (click)="limparPersonagens()">Limpar</button>
